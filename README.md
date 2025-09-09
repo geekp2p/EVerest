@@ -116,6 +116,8 @@ with an OCPP client.
 
 6. **Configure OCPP**
 
+   Create a custom OCPP configuration:
+
    ```bash
    mkdir -p ~/everest-ws/everest-core/config/ocpp
    cat > ~/everest-ws/everest-core/config/ocpp/config-docker.json <<'EOF'
@@ -132,7 +134,24 @@ with an OCPP client.
      "FirmwareVersion": "2025.09"
    }
    EOF
-   sed -i '/^- \s*iso15118_car\s*$/d; /^- \s*iso15118_charger\s*$/d' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
+   ```
+
+   Point the OCPP module at this file by editing
+   `~/everest-ws/everest-core/config/config-sil-ocpp.yaml` so the `ocpp`
+   section reads:
+
+   ```yaml
+   ocpp:
+     module: OCPP
+     config_module:
+       ChargePointConfigPath: /home/$USER/everest-ws/everest-core/config/ocpp/config-docker.json
+   ```
+
+   Then remove the ISO 15118 modules:
+
+   ```bash
+   sed -i '/^- \s*iso15118_car\s*$/d; /^- \s*iso15118_charger\s*$/d' \
+     ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
    ```
 
 7. **Upgrade Python packages in the build virtual environment**
@@ -182,7 +201,12 @@ PY
    "$BUILD_DIR/run-scripts/run-sil-ocpp.sh"
    ```
 
-   Run it with `./run-chargebridge-sim.sh LAB-CP-01`.
+   Make the script executable and run it:
+
+   ```bash
+   chmod +x ~/everest-ws/everest-core/run-chargebridge-sim.sh
+   ~/everest-ws/everest-core/run-chargebridge-sim.sh LAB-CP-01
+   ```
 
 # Demonstrations
 

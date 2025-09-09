@@ -150,9 +150,16 @@ with an OCPP client.
   Then remove the ISO 15118 modules:
 
   ```bash
-  sed -i '/^- *iso15118_car *$/d; /^- *iso15118_charger *$/d' \
+  sed -i '/^[[:space:]]*-[[:space:]]*iso15118_car[[:space:]]*$/d; \
+          /^[[:space:]]*-[[:space:]]*iso15118_charger[[:space:]]*$/d' \
+    ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
+  # verify removal (no output means success)
+  grep -nE 'iso15118_(car|charger)' \
     ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
   ```
+
+  If `grep` prints any lines, ensure those entries are removed before
+  continuing.
 
 7. **Upgrade Python packages in the build virtual environment**
 

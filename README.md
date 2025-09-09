@@ -154,14 +154,7 @@ with an OCPP client.
      ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
    ```
 
-7. **Upgrade Python packages in the build virtual environment**
-
-   ```bash
-   ~/everest-ws/everest-core/build/venv/bin/python -m pip install --upgrade pip
-   ~/everest-ws/everest-core/build/venv/bin/pip install 'pydantic<2' environs marshmallow cryptography
-   ```
-
-8. **Run the EVSE simulator**
+7. **Run the EVSE simulator**
 
    ```bash
    ~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh
@@ -170,12 +163,12 @@ with an OCPP client.
    Logs are written to `/tmp/everest_ocpp_logs/`. A BootNotification from
    `CP001` should appear on the central system.
 
-9. **Optional helper script**
+8. **Optional helper script**
 
    Create `~/everest-ws/everest-core/run-chargebridge-sim.sh` to launch the
    simulator with a custom ChargePoint ID:
 
-   <pre><code>
+   ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 CPID="${1:-ChargeBridge-SIM01}"
@@ -200,14 +193,14 @@ for k in ("CentralSystemURI", "ChargePointId", "SecurityProfile"):
 cfg.write_text(json.dumps(data, indent=2))
 PY
 "$BUILD_DIR/run-scripts/run-sil-ocpp.sh"
-   </code></pre>
+   ```
 
    Make the script executable and run it:
 
-   <pre><code>
+   ```bash
 chmod +x ~/everest-ws/everest-core/run-chargebridge-sim.sh
 ~/everest-ws/everest-core/run-chargebridge-sim.sh LAB-CP-01
-   </code></pre>
+   ```
 
 # Demonstrations
 

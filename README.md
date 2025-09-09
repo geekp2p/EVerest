@@ -147,12 +147,12 @@ with an OCPP client.
        ChargePointConfigPath: /home/$USER/everest-ws/everest-core/config/ocpp/config-docker.json
    ```
 
-   Then remove the ISO 15118 modules:
+  Then remove the ISO 15118 modules:
 
-   ```bash
-   sed -i '/^- \s*iso15118_car\s*$/d; /^- \s*iso15118_charger\s*$/d' \
-     ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
-   ```
+  ```bash
+  sed -i '/^- *iso15118_car *$/d; /^- *iso15118_charger *$/d' \
+    ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
+  ```
 
 7. **Upgrade Python packages in the build virtual environment**
 

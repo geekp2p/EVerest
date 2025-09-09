@@ -170,18 +170,20 @@ with an OCPP client.
    Logs are written to `/tmp/everest_ocpp_logs/`. A BootNotification from
    `CP001` should appear on the central system.
 
-     If the simulator exits with an error stating that the `iso15118` module
+   If the simulator exits with an error stating that the `iso15118` module
    (used by `PyEvJosev`) requires `pydantic`, install the dependency in the
    same environment and rerun the script:
 
    ```bash
-   # within the environment used to run run-sil-ocpp.sh
-   pip install "pydantic<2"
+   cd ~/everest-ws/everest-core/build
 
+   # install the missing library into this environment
+   ./venv/bin/pip install "pydantic<2"
    # or install a specific version
-   pip install pydantic==1.10.12
+   ./venv/bin/pip install pydantic==1.10.12
 
-   ~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh
+   # retry the simulator
+   ./run-scripts/run-sil-ocpp.sh
    ```
  
 9. **Optional helper script**

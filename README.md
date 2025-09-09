@@ -175,16 +175,16 @@ with an OCPP client.
    Create `~/everest-ws/everest-core/run-chargebridge-sim.sh` to launch the
    simulator with a custom ChargePoint ID:
 
-   ```bash
-   #!/usr/bin/env bash
-   set -euo pipefail
-   CPID="${1:-ChargeBridge-SIM01}"
-   CS_URI_BASE="ws://45.136.236.186:9000/ocpp"
-   EVEREST_ROOT="$HOME/everest-ws/everest-core"
-   BUILD_DIR="$EVEREST_ROOT/build"
-   UCFG="$BUILD_DIR/dist/share/everest/modules/OCPP/user_config.json"
-   [ -f "$UCFG.bak" ] || cp "$UCFG" "$UCFG.bak"
-   python3 - "$UCFG" "$CPID" "$CS_URI_BASE" <<'PY'
+   <pre><code>
+#!/usr/bin/env bash
+set -euo pipefail
+CPID="${1:-ChargeBridge-SIM01}"
+CS_URI_BASE="ws://45.136.236.186:9000/ocpp"
+EVEREST_ROOT="$HOME/everest-ws/everest-core"
+BUILD_DIR="$EVEREST_ROOT/build"
+UCFG="$BUILD_DIR/dist/share/everest/modules/OCPP/user_config.json"
+[ -f "$UCFG.bak" ] || cp "$UCFG" "$UCFG.bak"
+python3 - "$UCFG" "$CPID" "$CS_URI_BASE" <<'PY'
 
 import json, sys, pathlib
 cfg = pathlib.Path(sys.argv[1])
@@ -199,15 +199,15 @@ for k in ("CentralSystemURI", "ChargePointId", "SecurityProfile"):
     data.pop(k, None)
 cfg.write_text(json.dumps(data, indent=2))
 PY
-   "$BUILD_DIR/run-scripts/run-sil-ocpp.sh"
-   ```
+"$BUILD_DIR/run-scripts/run-sil-ocpp.sh"
+   </code></pre>
 
    Make the script executable and run it:
 
-   ```bash
-   chmod +x ~/everest-ws/everest-core/run-chargebridge-sim.sh
-   ~/everest-ws/everest-core/run-chargebridge-sim.sh LAB-CP-01
-   ```
+   <pre><code>
+chmod +x ~/everest-ws/everest-core/run-chargebridge-sim.sh
+~/everest-ws/everest-core/run-chargebridge-sim.sh LAB-CP-01
+   </code></pre>
 
 # Demonstrations
 

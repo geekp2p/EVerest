@@ -135,7 +135,14 @@ with an OCPP client.
    sed -i '/^- \s*iso15118_car\s*$/d; /^- \s*iso15118_charger\s*$/d' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
    ```
 
-7. **Run the EVSE simulator**
+7. **Upgrade Python packages in the build virtual environment**
+
+   ```bash
+   ~/everest-ws/everest-core/build/venv/bin/python -m pip install --upgrade pip
+   ~/everest-ws/everest-core/build/venv/bin/pip install 'pydantic<2' environs marshmallow cryptography
+   ```
+
+8. **Run the EVSE simulator**
 
    ```bash
    ~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh
@@ -144,7 +151,7 @@ with an OCPP client.
    Logs are written to `/tmp/everest_ocpp_logs/`. A BootNotification from
    `CP001` should appear on the central system.
 
-8. **Optional helper script**
+9. **Optional helper script**
 
    Create `~/everest-ws/everest-core/run-chargebridge-sim.sh` to launch the
    simulator with a custom ChargePoint ID:

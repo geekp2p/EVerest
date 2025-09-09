@@ -116,6 +116,8 @@ with an OCPP client.
 
 6. **Configure OCPP**
 
+   Create a custom OCPP configuration:
+
    ```bash
    mkdir -p ~/everest-ws/everest-core/config/ocpp
    cat > ~/everest-ws/everest-core/config/ocpp/config-docker.json <<'EOF'
@@ -132,7 +134,24 @@ with an OCPP client.
      "FirmwareVersion": "2025.09"
    }
    EOF
-   sed -i '/^- \s*iso15118_car\s*$/d; /^- \s*iso15118_charger\s*$/d' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
+   ```
+
+   Point the OCPP module at this file by editing
+   `~/everest-ws/everest-core/config/config-sil-ocpp.yaml` so the `ocpp`
+   section reads:
+
+   ```yaml
+   ocpp:
+     module: OCPP
+     config_module:
+       ChargePointConfigPath: /home/$USER/everest-ws/everest-core/config/ocpp/config-docker.json
+   ```
+
+   Then remove the ISO 15118 modules:
+
+   ```bash
+   sed -i '/^- \s*iso15118_car\s*$/d; /^- \s*iso15118_charger\s*$/d' \
+     ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
    ```
 
 7. **Upgrade Python packages in the build virtual environment**
@@ -156,16 +175,17 @@ with an OCPP client.
    Create `~/everest-ws/everest-core/run-chargebridge-sim.sh` to launch the
    simulator with a custom ChargePoint ID:
 
-   ```bash
-   #!/usr/bin/env bash
-   set -euo pipefail
-   CPID="${1:-ChargeBridge-SIM01}"
-   CS_URI_BASE="ws://45.136.236.186:9000/ocpp"
-   EVEREST_ROOT="$HOME/everest-ws/everest-core"
-   BUILD_DIR="$EVEREST_ROOT/build"
-   UCFG="$BUILD_DIR/dist/share/everest/modules/OCPP/user_config.json"
-   [ -f "$UCFG.bak" ] || cp "$UCFG" "$UCFG.bak"
-   python3 - "$UCFG" "$CPID" "$CS_URI_BASE" <<'PY'
+   <pre><code>
+#!/usr/bin/env bash
+set -euo pipefail
+CPID="${1:-ChargeBridge-SIM01}"
+CS_URI_BASE="ws://45.136.236.186:9000/ocpp"
+EVEREST_ROOT="$HOME/everest-ws/everest-core"
+BUILD_DIR="$EVEREST_ROOT/build"
+UCFG="$BUILD_DIR/dist/share/everest/modules/OCPP/user_config.json"
+[ -f "$UCFG.bak" ] || cp "$UCFG" "$UCFG.bak"
+python3 - "$UCFG" "$CPID" "$CS_URI_BASE" <<'PY'
+
 import json, sys, pathlib
 cfg = pathlib.Path(sys.argv[1])
 cpid, base = sys.argv[2], sys.argv[3]
@@ -179,10 +199,15 @@ for k in ("CentralSystemURI", "ChargePointId", "SecurityProfile"):
     data.pop(k, None)
 cfg.write_text(json.dumps(data, indent=2))
 PY
-   "$BUILD_DIR/run-scripts/run-sil-ocpp.sh"
-   ```
+"$BUILD_DIR/run-scripts/run-sil-ocpp.sh"
+   </code></pre>
 
-   Run it with `./run-chargebridge-sim.sh LAB-CP-01`.
+   Make the script executable and run it:
+
+   <pre><code>
+chmod +x ~/everest-ws/everest-core/run-chargebridge-sim.sh
+~/everest-ws/everest-core/run-chargebridge-sim.sh LAB-CP-01
+   </code></pre>
 
 # Demonstrations
 

@@ -185,6 +185,7 @@ with an OCPP client.
    UCFG="$BUILD_DIR/dist/share/everest/modules/OCPP/user_config.json"
    [ -f "$UCFG.bak" ] || cp "$UCFG" "$UCFG.bak"
    python3 - "$UCFG" "$CPID" "$CS_URI_BASE" <<'PY'
+
 import json, sys, pathlib
 cfg = pathlib.Path(sys.argv[1])
 cpid, base = sys.argv[2], sys.argv[3]

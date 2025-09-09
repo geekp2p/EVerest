@@ -147,13 +147,31 @@ with an OCPP client.
        ChargePointConfigPath: /home/$USER/everest-ws/everest-core/config/ocpp/config-docker.json
    ```
 
-  Then remove the ISO 15118 modules:
+ Then remove the ISO 15118 modules and any references to them:
 
-  ```bash
-  sed -i -e '/^[[:space:]]*-[[:space:]]*iso15118_car[[:space:]]*$/d' -e '/^[[:space:]]*-[[:space:]]*iso15118_charger[[:space:]]*$/d' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
-  # verify removal (no output means success)
-  grep -nE 'iso15118_(car|charger)' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
-  ```
+ ```bash
+ python3 - <<'PY'
+ import os, re, pathlib
+ cfg = pathlib.Path(os.path.expanduser("~/everest-ws/everest-core/config/config-sil-ocpp.yaml"))
+ lines = cfg.read_text().splitlines()
+ out, skip = [], False
+ for line in lines:
+     if re.match(r'^\s*iso15118_(?:car|charger):\s*$', line):
+         skip = True
+         continue
+     if skip and re.match(r'^\S', line):
+         skip = False
+     if skip or re.search(r'iso15118_(?:car|charger)', line):
+         continue
+     out.append(line)
+ cfg.write_text("\n".join(out) + "\n")
+ PY
+ # verify removal (no output means success)
+ grep -nE 'iso15118_(car|charger)' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
+ ```
+
+ If `grep` prints any lines, ensure those entries are removed before
+ continuing.
 
   If `grep` prints any lines, ensure those entries are removed before
   continuing.
@@ -168,8 +186,12 @@ with an OCPP client.
 8. **Run the EVSE simulator**
 
    ```bash
-   ~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh
-   ```
+  ~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh
+  ```
+
+  If `pydantic` is already installed, ensure the ISO 15118 modules were
+  removed from `config-sil-ocpp.yaml` (see step 6); otherwise the simulator
+  will continue to try loading them and emit this error.
 
    If the simulator exits with an error such as:
 

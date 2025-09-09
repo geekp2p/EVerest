@@ -150,12 +150,9 @@ with an OCPP client.
   Then remove the ISO 15118 modules:
 
   ```bash
-  sed -i '/^[[:space:]]*-[[:space:]]*iso15118_car[[:space:]]*$/d; \
-          /^[[:space:]]*-[[:space:]]*iso15118_charger[[:space:]]*$/d' \
-    ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
+  sed -i -e '/^[[:space:]]*-[[:space:]]*iso15118_car[[:space:]]*$/d' -e '/^[[:space:]]*-[[:space:]]*iso15118_charger[[:space:]]*$/d' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
   # verify removal (no output means success)
-  grep -nE 'iso15118_(car|charger)' \
-    ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
+  grep -nE 'iso15118_(car|charger)' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
   ```
 
   If `grep` prints any lines, ensure those entries are removed before
@@ -180,9 +177,9 @@ with an OCPP client.
    ModuleNotFoundError: No module named 'pydantic'
    ```
 
-   it means the `iso15118` module used by `PyEvJosev` requires `pydantic`, but
-   the library is not present in your Python environment. Install it (most
-   modules in this stack expect `pydantic` 1.x) and rerun the script:
+  it means the `iso15118` module used by `PyEvJosev` requires `pydantic`, but
+  the library is not present in your Python environment. Install it (most
+  modules in this stack expect `pydantic` 1.x) and rerun the script:
 
    ```bash
    # inside the environment used by run-sil-ocpp.sh
@@ -192,8 +189,12 @@ with an OCPP client.
    ~/everest-ws/everest-core/build/venv/bin/pip install pydantic==1.10.12
 
    # retry the simulator
-   ~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh
-   ```
+  ~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh
+  ```
+
+  If `pydantic` is already installed, ensure the ISO 15118 modules were
+  removed from `config-sil-ocpp.yaml` (see step 6); otherwise the simulator
+  will continue to try loading them and emit this error.
 
  
 9. **Optional helper script**

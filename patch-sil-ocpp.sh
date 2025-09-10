@@ -107,7 +107,8 @@ if [[ ! -f "$OCPP_JSON" ]]; then
   },
   "Security": {
     "UseTLS": false,
-    "VerifyServer": false
+    "VerifyServer": false,
+    "DisableSecurityEventNotifications": true
   },
   "Logging": {
     "EnableMessageLogging": false
@@ -121,12 +122,19 @@ import json, sys, pathlib
 path = pathlib.Path(sys.argv[1])
 data = json.loads(path.read_text())
 core = data.setdefault("Core", {})
+security = data.setdefault("Security", {})
+changed = False
 if "SupportedFeatureProfiles" not in core:
     core["SupportedFeatureProfiles"] = "Core"
+    changed = True
+if security.get("DisableSecurityEventNotifications") is not True:
+    security["DisableSecurityEventNotifications"] = True
+    changed = True
+if changed:
     path.write_text(json.dumps(data, indent=2))
-    print(f"OK: เพิ่ม SupportedFeatureProfiles ลงใน {path}")
+    print(f"OK: ปรับปรุง {path} ด้วยค่าเริ่มต้นที่จำเป็น")
 else:
-    print(f"SKIP: พบ SupportedFeatureProfiles อยู่แล้วใน {path}")
+    print(f"SKIP: {path} มีค่าเหล่านี้ครบแล้ว")
 PY
 fi
 

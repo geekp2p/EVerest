@@ -84,7 +84,7 @@ else
   echo "OK: ลบ iso15118_car/iso15118_charger และอ้างอิงทั้งหมดแล้ว"
 fi
 
-# 4) สร้างไฟล์ OCPP config ขั้นต่ำถ้ายังไม่มี (ให้แก้ CentralSystemURI ภายหลัง)
+# 4) ตรวจสอบไฟล์ OCPP config: สร้างใหม่หรือเติม SupportedFeatureProfiles หากขาด
 if [[ ! -f "$OCPP_JSON" ]]; then
   mkdir -p "$(dirname "$OCPP_JSON")"
   cat > "$OCPP_JSON" <<'JSON'
@@ -98,7 +98,8 @@ if [[ ! -f "$OCPP_JSON" ]]; then
     "Connectors": [
       { "id": 1, "txAllowed": true },
       { "id": 2, "txAllowed": true }
-    ]
+    ],
+    "SupportedFeatureProfiles": "Core"
   },
   "Websocket": {
     "PingIntervalS": 30,
@@ -115,7 +116,18 @@ if [[ ! -f "$OCPP_JSON" ]]; then
 JSON
   echo "OK: สร้าง ${OCPP_JSON} แล้ว (ปรับ CentralSystemURI ให้ตรง CSMS ของคุณได้)"
 else
-  echo "SKIP: พบไฟล์ ${OCPP_JSON} อยู่แล้ว"
+  python3 - "$OCPP_JSON" <<'PY'
+import json, sys, pathlib
+path = pathlib.Path(sys.argv[1])
+data = json.loads(path.read_text())
+core = data.setdefault("Core", {})
+if "SupportedFeatureProfiles" not in core:
+    core["SupportedFeatureProfiles"] = "Core"
+    path.write_text(json.dumps(data, indent=2))
+    print(f"OK: เพิ่ม SupportedFeatureProfiles ลงใน {path}")
+else:
+    print(f"SKIP: พบ SupportedFeatureProfiles อยู่แล้วใน {path}")
+PY
 fi
 
 echo "DONE. Backup: ${YAML}.bak.${TS}"

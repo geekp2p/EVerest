@@ -301,3 +301,5 @@ electrification of the mobility sector.
 
 EVerest is a project hosted by the [LF Energy Foundation.](https://lfenergy.org/)
 This project's technical charter is located in [CHARTER.md](https://github.com/EVerest/EVerest/blob/main/tsc/CHARTER.md)
+
+.

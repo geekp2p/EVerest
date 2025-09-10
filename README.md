@@ -128,12 +128,20 @@ with an OCPP client.
      "AuthorizationKey": "",
      "HeartbeatInterval": 60,
      "MeterValueSampleInterval": 15,
+     "MeterValuesAlignedData": "Energy.Active.Import.Register",
      "ReconnectIntervalMsec": 5000,
      "ChargePointVendor": "EVerestSim",
      "ChargePointModel": "SIL-AC-1x32A",
      "FirmwareVersion": "2025.09"
    }
    EOF
+   ```
+
+      The `MeterValuesAlignedData` field is mandatory in the OCPP configuration.
+   If it is missing, the simulator exits with an error similar to:
+
+   ```
+   required property 'MeterValuesAlignedData' not found in object
    ```
 
    Point the OCPP module at this file by editing
@@ -169,6 +177,9 @@ with an OCPP client.
  # verify removal (no output means success)
  grep -nE 'iso15118_(car|charger)' ~/everest-ws/everest-core/config/config-sil-ocpp.yaml
  ```
+
+ If `grep` prints any lines, ensure those entries are removed before
+ continuing.
 
  If `grep` prints any lines, ensure those entries are removed before
  continuing.
@@ -215,9 +226,16 @@ with an OCPP client.
   ```
 
   If `pydantic` is already installed, ensure the ISO 15118 modules were
-  removed from `config-sil-ocpp.yaml` (see step 6); otherwise the simulator
-  will continue to try loading them and emit this error.
+  removed from `config-sil-ocpp.yaml` (see step 6). You can confirm their
+  removal with:
 
+  ```bash
+  grep -nE 'iso15118_(car|charger)' \
+    ~/everest-ws/everest-core/config/config-sil-ocpp.yaml || echo "OK"
+  ```
+
+  If any lines are printed, the simulator will continue to try loading the
+  ISO 15118 modules and emit this error.
  
 9. **Optional helper script**
 

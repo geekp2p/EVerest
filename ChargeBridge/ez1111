@@ -1,0 +1,35 @@
+curl -H "X-API-Key: changeme-123" http://45.136.236.186:8080/api/v1/status
+curl -H "X-API-Key: changeme-123" http://45.136.236.186:8080/api/v1/pending
+curl -X POST http://45.136.236.186:8080/api/v1/stations -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d '{"name":"Demo","location":"TheMansion"}'
+curl -X POST http://45.136.236.186:8080/api/v1/reset -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d '{"cpid":"Gresgying01","type":"Soft"}'
+curl -X DELETE http://45.136.236.186:8080/api/v1/stations/1 -H "X-API-Key: changeme-123"
+
+
+curl -X POST http://45.136.236.186:7071/plug/1
+curl -H "X-API-Key: changeme-123" http://45.136.236.186:8080/api/v1/pending
+# ตัวอย่างผลลัพธ์:
+# [{"station_id":"Gresgying01","connector_id":1,"id_tag":"VID:FCA47A147858","created_at":"2024-01-01T00:00:00"}]
+curl -X POST http://45.136.236.186:8080/api/v1/start -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"connectorId\":1,\"id_tag\":\"VID:FCA47A147858\"}"
+
+
+
+
+ตัวอย่าง curl แบบบรรทัดเดียวสำหรับ Windows CMD
+curl -H "X-API-Key: changeme-123" http://45.136.236.186:8080/api/v1/status
+curl -H "X-API-Key: changeme-123" http://45.136.236.186:8080/api/v1/overview
+curl -H "X-API-Key: changeme-123" http://45.136.236.186:8080/api/v1/pending
+curl -X POST http://45.136.236.186:8080/api/v1/stations -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"name\":\"Demo\",\"location\":\"TheMansion\"}"
+curl -X POST http://45.136.236.186:8080/api/v1/reset -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"type\":\"Soft\"}"
+curl -X DELETE http://45.136.236.186:8080/api/v1/stations/1 -H "X-API-Key: changeme-123"
+curl -X POST http://45.136.236.186:7071/plug/1
+curl -X POST http://45.136.236.186:8080/api/v1/start -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"connectorId\":1,\"id_tag\":\"VID:FCA47A147858\"}"
+
+
+curl -X POST http://45.136.236.186:8080/api/v1/start -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"connectorId\":1,\"id_tag\":\"VID:E8E2A314\"}"
+curl -X POST http://45.136.236.186:8080/api/v1/stop -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"transactionId\":1}"
+curl -X POST http://45.136.236.186:8080/api/v1/release -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"connectorId\":1}"
+
+C64BDE2E
+
+curl -X POST http://45.136.236.186:8080/api/v1/start -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"connectorId\":2,\"id_tag\":\"VID:C64BDE2E\"}"
+curl -X POST http://45.136.236.186:8080/api/v1/stop -H "Content-Type: application/json" -H "X-API-Key: changeme-123" -d "{\"cpid\":\"Gresgying01\",\"transactionId\":2}"

@@ -53,6 +53,17 @@ if /I "%~1"=="/force" goto PUSH_FORCE
 :PUSH_NORMAL
 git push
 if errorlevel 1 (
+  REM Check for GH007 (private email protection)
+  set "GHERR="
+  for /f "delims=" %%L in ('git push 2^>^&1 ^| findstr /C:"GH007"') do set GHERR=1
+  if defined GHERR (
+    echo GitHub blocked the push (GH007: private email).
+    echo Fix:
+    echo   git config --global user.email ^<ID^>+^<username^>@users.noreply.github.com
+    echo   git commit --amend --reset-author --no-edit
+    echo   git push --force-with-lease
+    exit /b 1
+  )
   echo Push failed. If you need to overwrite remote, run:
   echo   %~nx0 /force
   exit /b 1
@@ -62,7 +73,20 @@ goto DONE
 :PUSH_FORCE
 echo Forcing push with lease protection...
 git push --force-with-lease
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+  REM Check for GH007 (private email protection) on force push as well
+  set "GHERR="
+  for /f "delims=" %%L in ('git push --force-with-lease 2^>^&1 ^| findstr /C:"GH007"') do set GHERR=1
+  if defined GHERR (
+    echo GitHub blocked the push (GH007: private email).
+    echo Fix:
+    echo   git config --global user.email ^<ID^>+^<username^>@users.noreply.github.com
+    echo   git commit --amend --reset-author --no-edit
+    echo   git push --force-with-lease
+    exit /b 1
+  )
+  exit /b 1
+)
 
 :DONE
 echo Done.

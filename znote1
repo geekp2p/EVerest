@@ -9,3 +9,41 @@ git status                  # ดูไฟล์ที่เปลี่ยน
 git add -A                  # เก็บการเปลี่ยนแปลงทั้งหมด
 git commit -m "msg"         # ใส่ข้อความ commit
 git push                    # ดันขึ้น GitHub (origin)
+
+
+ใช้สคริปต์ run-sil-ocpp.sh (อยู่ใน /home/x/everest-ws/everest-core/build/run-scripts/)
+
+http://192.168.88.252:8080/start?evse=1, http://192.168.88.252:8080/stop?evse=1
+
+
+sudo usermod -aG docker $USER
+sudo systemctl status docker
+sudo systemctl start docker
+sudo ./nodered-sil.sh
+
+
+curl -X POST http://192.168.88.252:8080/start?evse=1
+curl -X POST http://192.168.88.252:8080/stop?evse=1
+curl -X POST http://192.168.88.252:8080/reset?evse=1
+
+
+curl -H "X-API-Key: changeme-123" -X POST http://192.168.88.252:8080/api/v1/start -H "Content-Type: application/json" -d "{\"cpid\":\"CP001\",\"connectorId\":1}"
+
+
+curl -H "X-API-Key: changeme-123" -X POST http://192.168.88.252:8080/api/v1/start -H "Content-Type: application/json" -d "{\"cpid\":\"CP001\",\"connectorId\":2}"
+
+curl -H "X-API-Key: changeme-123" -H "Content-Type: application/json" -X POST http://45.136.236.186:8080/api/v1/start -d "{\"cpid\":\"CP001\",\"connectorId\":1}"
+
+
+curl -H "X-API-Key: changeme-123" -H "Content-Type: application/json" -X POST http://45.136.236.186:8080/api/v1/start -d "{\"cpid\":\"CP001\",\"connectorId\":2}"
+
+
+
+| ลำดับ | ทำอะไร                                    | คำสั่ง/รายละเอียด                                                                                                                                                                                                                          |
+| ----- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1     | **เปิด Central System** (OCPP + REST API) | `~/everest-ws/everest-core/build/run-scripts/run-sil-ocpp.sh`<br>- เปิด WebSocket ที่ `ws://0.0.0.0:9000/ocpp/<ChargePointID>`<br>- เปิด REST API ที่ `http://192.168.88.252:8080`                                                         |
+| 2     | **เปิด Node‑RED Dashboard** (GUI จำลองรถ) | `sudo ~/everest-ws/everest-core/build/run-scripts/nodered-sil.sh`<br>เข้าเว็บที่ `http://192.168.88.252:1880/ui`                                                                                                                           |
+| 3     | **ตั้งค่าฝั่งสถานีชาร์จจำลอง**            | ในไฟล์ config JSON ของสถานี<br>- `CentralSystemURI = ws://192.168.88.252:9000/ocpp/CP001`<br>- เปลี่ยน `ChargePointId` (เช่น `CP001`) ไม่ให้ซ้ำกับสถานีอื่น                                                                                |
+| 4     | **รันตัวจำลองสถานีชาร์จ**                 | ใช้ไฟล์ config JSON ที่ปรับแล้ว<br>เมื่อรันจะส่ง `BootNotification` อัตโนมัติไปยัง Central                                                                                                                                                 |
+| 5     | **ทดลองคำสั่งผ่าน REST API**              | ตัวอย่าง (ฝั่ง Windows 10):<br>`curl -H "X-API-Key: changeme-123" -H "Content-Type: application/json" -X POST http://192.168.88.252:8080/api/v1/start -d "{\"cpid\":\"CP001\",\"connectorId\":2}"`<br>→ ใช้ `stop` หรือ `reset` ได้เช่นกัน |
+| 6     | **ใช้ GUI บน Node‑RED**                   | - เลือก *Car Simulation* (เช่น AC 3ph 16A)<br>- เปิดสวิตช์ **Enable**<br>- กด **CAR PLUG IN** → **START** (หรือคำสั่งอื่นที่ต้องการ)<br>- เมื่อเสร็จให้กด **STOP & UNPLUG**                                                                |

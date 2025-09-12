@@ -1,0 +1,43 @@
+{
+  "Internal": {
+    "ChargePointId": "CP001",
+    "CentralSystemURI": "ws://45.136.236.186:9000/ocpp/CP001",
+    "ChargeBoxSerialNumber": "CP001",
+    "ChargePointModel": "SIL-AC-1x32A",
+    "ChargePointVendor": "EVerestSim",
+    "FirmwareVersion": "2025.09",
+    "AllowChargingProfileWithoutStartSchedule": true,
+    "UseTPM": false,
+    "LogMessagesFormat": [
+      "html"
+    ]
+  },
+  "Core": {
+    "AuthorizeRemoteTxRequests": true,
+    "HeartbeatInterval": 60,
+    "MeterValueSampleInterval": 15,
+    "ClockAlignedDataInterval": 0,
+    "ConnectionTimeOut": 30,
+    "NumberOfConnectors": 2,
+    "ConnectorPhaseRotation": "0.RST,1.RST,2.RST",
+    "MeterValuesSampledData": "Energy.Active.Import.Register,Power.Active.Import,Current.Import,Voltage",
+    "MeterValuesAlignedData": "Energy.Active.Import.Register",
+    "StopTxnAlignedData": "Energy.Active.Import.Register",
+    "StopTxnSampledData": "Energy.Active.Import.Register",
+    "StopTransactionOnInvalidId": true,
+    "UnlockConnectorOnEVSideDisconnect": true,
+    "GetConfigurationMaxKeys": 10,
+    "LocalAuthorizeOffline": false,
+    "AllowOfflineTxForUnknownId": false,
+    "LocalPreAuthorize": false,
+    "ResetRetries": 3,
+    "SupportedFeatureProfiles": "Core,FirmwareManagement,LocalAuthListManagement,Reservation,RemoteTrigger,SmartCharging",
+    "TransactionMessageAttempts": 1,
+    "TransactionMessageRetryInterval": 10
+  },
+  "Security": {
+    "SecurityProfile": 0,
+    "AuthorizationKey": "changeme-123",
+    "DisableSecurityEventNotifications": true
+  }
+}

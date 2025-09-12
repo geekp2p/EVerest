@@ -1,3 +1,8 @@
+git config --global user.name geekp2p
+git config --global user.email geekp2p@github.com
+
+
+
 git remote add origin https://github.com/geekp2p/EVerest.git
 git add -A
 git commit -m "Initial commit"

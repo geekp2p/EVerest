@@ -198,6 +198,30 @@ class CentralSystem(ChargePoint):
             )
         except Exception as e:
             logging.warning(f"Failed to fetch supported configuration keys: {e}")
+        desired_configs = {
+            "HeartbeatInterval": "300",
+            "MeterValueSampleInterval": "60",
+            "OcppUrl": "wss://example.com/ocpp",
+            "FreeChargingEnabled": "true",
+            "FreeChargingIDTag": "FREE",
+        }
+
+        for key, value in desired_configs.items():
+            if key in supported_keys:
+                req = call.ChangeConfiguration(key=key, value=value)
+                await self._send_change_configuration(req)
+            else:
+                try:
+                    dt_req = call.DataTransfer(
+                        vendor_id="org.everest.config",
+                        message_id=key,
+                        data=value,
+                    )
+                    await self._send_change_configuration(dt_req)
+                except Exception as e:
+                    logging.warning(
+                        f"Failed to send unsupported key {key} via DataTransfer: {e}"
+                    )
 
         if "AuthorizeRemoteTxRequests" in supported_keys:
             cfg_req = call.ChangeConfiguration(

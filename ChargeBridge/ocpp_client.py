@@ -152,9 +152,10 @@ class OCPPClient:
 
     async def _heartbeat_loop(self) -> None:
         assert self._heartbeat_interval is not None
+        interval = max(self._heartbeat_interval, 1)
         try:
             while True:
-                await asyncio.sleep(self._heartbeat_interval)
+                await asyncio.sleep(interval)
                 try:
                     await asyncio.wait_for(
                         self._call("Heartbeat", {}),

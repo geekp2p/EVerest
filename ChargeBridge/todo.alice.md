@@ -3,9 +3,9 @@
 Tasks for OCPP server enhancements compatible with existing `ChargeBridge` modules.
 
 ## 1. BootNotification and Heartbeat
-- [ ] On client connect, send `BootNotification` with station metadata.
-- [ ] Schedule periodic `Heartbeat` every `HeartbeatInterval` seconds.
-- [ ] Reconnect automatically if no `Heartbeat` ack within `ConnectionTimeOut`.
+- [x] On client connect, send `BootNotification` with station metadata.
+- [x] Schedule periodic `Heartbeat` every `HeartbeatInterval` seconds.
+- [x] Reconnect automatically if no `Heartbeat` ack within `ConnectionTimeOut`.
 
 ## 2. Authorize prior to StartTransaction
 - [ ] Before starting a session, call `Authorize` with the incoming `idTag`.

@@ -25,11 +25,22 @@ class OCPPClient:
         charge_point_id: str,
         ocpp_protocol: str = "ocpp1.6",
         charger_model: str = "Gresgying 120-180 kW DC",
+        *,
+        charge_point_vendor: str = "Unknown",
+        heartbeat_interval: int | None = None,
+        connection_timeout: int = 30,
+        firmware_version: str | None = None,
+        serial_number: str | None = None,
     ) -> None:
         self.uri = uri
         self.charge_point_id = charge_point_id
         self.ocpp_protocol = ocpp_protocol
         self.charger_model = charger_model
+        self.charge_point_vendor = charge_point_vendor
+        self.firmware_version = firmware_version
+        self.serial_number = serial_number
+        self._heartbeat_interval = heartbeat_interval
+        self.connection_timeout = connection_timeout
         self._ws: websockets.WebSocketClientProtocol | None = None
         self._heartbeat_task: asyncio.Task | None = None
         self._listener_task: asyncio.Task | None = None
@@ -112,21 +123,61 @@ class OCPPClient:
         """Send a BootNotification and schedule periodic heartbeats."""
         payload = {
             "chargePointModel": self.charger_model,
-            "chargePointVendor": "Unknown"
+            "chargePointVendor": self.charge_point_vendor,
         }
-        resp = await self._call("BootNotification", payload)
-        interval = int(resp.get("interval", 0)) or 60
+        if self.serial_number:
+            payload["chargePointSerialNumber"] = self.serial_number
+        if self.firmware_version:
+            payload["firmwareVersion"] = self.firmware_version
+
+        resp = await asyncio.wait_for(
+            self._call("BootNotification", payload),
+            timeout=self.connection_timeout,
+        )
+        interval = resp.get("interval")
+        if interval is not None:
+            try:
+                self._heartbeat_interval = int(interval)
+            except Exception:
+                logger.debug("Invalid interval from BootNotification: %s", interval)
+        if self._heartbeat_interval is None:
+            self._heartbeat_interval = 60
         if self._heartbeat_task:
             self._heartbeat_task.cancel()
-        self._heartbeat_task = asyncio.create_task(self._heartbeat_loop(interval))
+        self._heartbeat_task = asyncio.create_task(self._heartbeat_loop())
 
-    async def _heartbeat_loop(self, interval: int) -> None:
+    async def _heartbeat_loop(self) -> None:
+        assert self._heartbeat_interval is not None
         try:
             while True:
-                await asyncio.sleep(interval)
-                await self._call("Heartbeat", {})
+                await asyncio.sleep(self._heartbeat_interval)
+                try:
+                    await asyncio.wait_for(
+                        self._call("Heartbeat", {}),
+                        timeout=self.connection_timeout,
+                    )
+                except (asyncio.TimeoutError, websockets.ConnectionClosed):
+                    logger.warning("Heartbeat failed; attempting reconnect")
+                    await self._reconnect()
+                    return
         except asyncio.CancelledError:
             pass
+
+    async def _reconnect(self) -> None:
+        if self._ws is not None:
+            try:
+                await self._ws.close()
+            except Exception:
+                pass
+            self._ws = None
+        if self._listener_task:
+            self._listener_task.cancel()
+            self._listener_task = None
+        await asyncio.sleep(1)
+        try:
+            await self.connect()
+        except Exception:
+            logger.exception("Reconnection attempt failed")
 
     async def authorize(self, id_tag: str) -> dict:
         """Send an Authorize request for the given idTag."""

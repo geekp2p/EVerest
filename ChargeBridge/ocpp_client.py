@@ -134,14 +134,18 @@ class OCPPClient:
             self._call("BootNotification", payload),
             timeout=self.connection_timeout,
         )
-        interval = resp.get("interval")
-        if interval is not None:
-            try:
-                self._heartbeat_interval = int(interval)
-            except Exception:
-                logger.debug("Invalid interval from BootNotification: %s", interval)
-        if self._heartbeat_interval is None:
-            self._heartbeat_interval = 60
+        interval_raw = resp.get("interval")
+        try:
+            interval_val = int(interval_raw)
+        except Exception:
+            interval_val = 0
+        self._heartbeat_interval = (
+            interval_val or self._heartbeat_interval or 60
+        )
+        if interval_val <= 0 and interval_raw is not None:
+            logger.debug(
+                "Invalid interval from BootNotification: %s", interval_raw
+            )
         if self._heartbeat_task:
             self._heartbeat_task.cancel()
         self._heartbeat_task = asyncio.create_task(self._heartbeat_loop())

@@ -23,8 +23,8 @@ central system, these client-side files can be removed.
 | BootNotification & Heartbeat              |        ✅        |     ✅      | check `central.py` logs after the client connects |
 | Authorize                                 |        ✅        |     ✅      | start a session; central logs show `Authorize` before `StartTransaction` |
 | MeterValues                               | ✅ (log only)    |     ❌      | not emitted by the client |
-| DataTransfer                              |        ✅        |     ❌      | not supported yet |
-| Session data (sensor expansion)           |        ❌        |     ❌      | – |
+| DataTransfer                              |        ✅        |     ✅      | use `data_transfer` or `send_mac_id` |
+| Session data (sensor expansion)           |        ✅        |     ✅      | records include current, voltage, temperature, SoC |
 | RemoteStart/RemoteStop                    |        ✅        |     ❌      | use `/api/v1/start` and `/api/v1/stop`; client can't handle OCPP `RemoteStartTransaction` |
 | StatusNotification                        |        ✅        |     ✅      | central logs show `Available → Charging → Finishing` transitions |
 | Change/Get Configuration & TriggerMessage | ✅ (no TriggerMessage) | ❌ | – |

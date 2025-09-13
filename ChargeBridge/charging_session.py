@@ -19,10 +19,12 @@ class ChargingSession:
     samples: list[dict] = field(default_factory=list)
     sample_interval: float = 10.0
     _meter_task: asyncio.Task | None = None
+    energy: float = 0.0
 
     async def start(self, meter_start: int) -> dict:
         """Begin a charging session and record the starting meter value."""
         self.meter_start = meter_start
+        self.energy = float(meter_start)
         await self.ocpp.connect()
         response = await self.ocpp.start_transaction(
             self.connector_id, self.id_tag, self.meter_start
@@ -57,17 +59,20 @@ class ChargingSession:
             pass
 
     def _read_sample(self) -> dict:
-        """Read current, voltage, state of charge and temperature.
+        """Read current, voltage, power, energy, SoC and temperature.
 
-        This is a placeholder implementation and should be replaced with actual
-        hardware interactions.  Values are reported as floats and a timestamp in
-        ISO8601 format is included.
+        This placeholder implementation increments energy by one unit per
+        sample and reports zero for the remaining measurands.  Replace with
+        real hardware integration for production use.
         """
 
+        self.energy += 1
         return {
             "timestamp": datetime.utcnow().isoformat(),
             "current": 0.0,
             "voltage": 0.0,
+            "power": 0.0,
             "soc": 0.0,
             "temperature": 0.0,
+            "energy": int(self.energy),
         }

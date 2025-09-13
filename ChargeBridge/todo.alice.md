@@ -4,7 +4,7 @@ Tasks for OCPP server enhancements compatible with existing `ChargeBridge` modul
 
 ## 1. BootNotification and Heartbeat
 - [x] On client connect, send `BootNotification` with station metadata.
-- [x] Schedule periodic `Heartbeat` using server's interval or a fallback `HeartbeatInterval`.
+- [x] Schedule periodic `Heartbeat` every `HeartbeatInterval` seconds.
 - [x] Reconnect automatically if no `Heartbeat` ack within `ConnectionTimeOut`.
 
 ## 2. Authorize prior to StartTransaction
@@ -12,8 +12,8 @@ Tasks for OCPP server enhancements compatible with existing `ChargeBridge` modul
 - [ ] Deny transaction when `AllowOfflineTxForUnknownId` is `false` and central system is unreachable.
 
 ## 3. MeterValues streaming
-- [ ] Sample `Energy.Active.Import.Register`, `Current.Import`, `Voltage`, `Power.Active.Import`, `SoC`, `Temperature` every `MeterValueSampleInterval`.
-- [ ] Send `MeterValues` during active sessions and record them to persistent storage.
+- [x] Sample `Energy.Active.Import.Register`, `Current.Import`, `Voltage`, `Power.Active.Import`, `SoC`, `Temperature` every `MeterValueSampleInterval`.
+- [x] Send `MeterValues` during active sessions and record them to persistent storage.
 
 ## 4. Vendor-specific DataTransfer
 - [ ] Implement handler to parse and respond to `DataTransfer` messages.

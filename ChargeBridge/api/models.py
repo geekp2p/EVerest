@@ -11,6 +11,10 @@ class ChargingSession(BaseModel):
     ended_at: Optional[datetime] = None
     kwh_delivered: Optional[float] = None
     status: str = "active"
+    current: Optional[float] = None
+    voltage: Optional[float] = None
+    temperature: Optional[float] = None
+    soc: Optional[float] = None
 
 
 class Connector(BaseModel):

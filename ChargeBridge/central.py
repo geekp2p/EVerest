@@ -339,6 +339,7 @@ class CentralSystem(ChargePoint):
         c_id = int(connector_id)
         session = self.active_tx.get(c_id)
         if session is not None:
+            tx_id = session.get("transaction_id")
             for entry in meter_value:
                 sample = {"timestamp": entry.get("timestamp")}
                 for sv in entry.get("sampledValue", []):
@@ -351,12 +352,18 @@ class CentralSystem(ChargePoint):
                         sample["current"] = val
                     elif meas == "Voltage":
                         sample["voltage"] = val
+                    elif meas == "Power.Active.Import":
+                        sample["power"] = val
                     elif meas == "SoC":
                         sample["soc"] = val
                     elif meas == "Temperature":
                         sample["temperature"] = val
+                    elif meas == "Energy.Active.Import.Register":
+                        sample["energy"] = val
                 session.setdefault("meter_samples", []).append(sample)
                 session["last_sample"] = sample
+                if tx_id is not None:
+                    store.record_meter_value(int(tx_id), sample)
         return call_result.MeterValues()
 
     @on(Action.data_transfer)
@@ -468,6 +475,7 @@ class CentralSystem(ChargePoint):
         store.pending.pop((self.id, int(connector_id)), None)
 
         tx_id = next(_tx_counter)
+        store.clear_meter_values(tx_id)
         info = {
             "transaction_id": tx_id,
             "id_tag": id_tag,
@@ -524,6 +532,10 @@ class CentralSystem(ChargePoint):
             duration_secs = (stop_time - start_time).total_seconds() if start_time else 0
             meter_start = session_info.get("meter_start", meter_stop)
             energy = meter_stop - meter_start
+            samples = (
+                store.get_meter_values(int(transaction_id))
+                or session_info.get("meter_samples", [])
+            )
             record = {
                 "connectorId": c_id,
                 "transactionId": int(transaction_id),
@@ -538,12 +550,16 @@ class CentralSystem(ChargePoint):
                 "durationSecs": duration_secs,
                 "samples": session_info.get("meter_samples", []),
             }
+            last_sample = session_info.get("last_sample", {})
+            record["current"] = last_sample.get("current")
+            record["voltage"] = last_sample.get("voltage")
+            record["temperature"] = last_sample.get("temperature")
+            record["soc"] = last_sample.get("soc")
             self.completed_sessions.append(record)
             logging.info(f"Session summary: {record}")
         return call_result.StopTransaction(
             id_tag_info={"status": AuthorizationStatus.accepted}
         )
-
 
 DEFAULT_ID_TAG = "DEMO_IDTAG"
 API_KEY = "changeme-123"

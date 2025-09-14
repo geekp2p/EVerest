@@ -1,0 +1,2082 @@
+
+===== Displaying key files in current directory =====
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\Authorize.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:AuthorizeRequest",
+    "title": "AuthorizeRequest",
+    "type": "object",
+    "properties": {
+        "idTag": {
+            "type": "string",
+            "maxLength": 20
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "idTag"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\AuthorizeResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:AuthorizeResponse",
+    "title": "AuthorizeResponse",
+    "type": "object",
+    "properties": {
+        "idTagInfo": {
+            "type": "object",
+            "properties": {
+                "expiryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "parentIdTag": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "status": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "Accepted",
+                        "Blocked",
+                        "Expired",
+                        "Invalid",
+                        "ConcurrentTx"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "status"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "idTagInfo"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\BootNotification.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:BootNotificationRequest",
+    "title": "BootNotificationRequest",
+    "type": "object",
+    "properties": {
+        "chargePointVendor": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "chargePointModel": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "chargePointSerialNumber": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "chargeBoxSerialNumber": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "firmwareVersion": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "iccid": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "imsi": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "meterType": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "meterSerialNumber": {
+            "type": "string",
+            "maxLength": 25
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "chargePointVendor",
+        "chargePointModel"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\BootNotificationResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:BootNotificationResponse",
+    "title": "BootNotificationResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Pending",
+                "Rejected"
+            ]
+        },
+        "currentTime": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "interval": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status",
+        "currentTime",
+        "interval"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\CancelReservation.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:CancelReservationRequest",
+    "title": "CancelReservationRequest",
+    "type": "object",
+    "properties": {
+        "reservationId": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "reservationId"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\CancelReservationResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:CancelReservationResponse",
+    "title": "CancelReservationResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ChangeAvailability.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ChangeAvailabilityRequest",
+    "title": "ChangeAvailabilityRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+        "type": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Inoperative",
+                "Operative"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId",
+        "type"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ChangeAvailabilityResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ChangeAvailabilityResponse",
+    "title": "ChangeAvailabilityResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected",
+                "Scheduled"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ChangeConfiguration.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ChangeConfigurationRequest",
+    "title": "ChangeConfigurationRequest",
+    "type": "object",
+    "properties": {
+        "key": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "value": {
+            "type": "string",
+            "maxLength": 500
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "key",
+        "value"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ChangeConfigurationResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ChangeConfigurationResponse",
+    "title": "ChangeConfigurationResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected",
+                "RebootRequired",
+                "NotSupported"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ClearCache.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ClearCacheRequest",
+    "title": "ClearCacheRequest",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ClearCacheResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ClearCacheResponse",
+    "title": "ClearCacheResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ClearChargingProfile.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ClearChargingProfileRequest",
+    "title": "ClearChargingProfileRequest",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "connectorId": {
+            "type": "integer"
+        },
+        "chargingProfilePurpose": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "ChargePointMaxProfile",
+                "TxDefaultProfile",
+                "TxProfile"
+            ]
+        },
+        "stackLevel": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ClearChargingProfileResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ClearChargingProfileResponse",
+    "title": "ClearChargingProfileResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Unknown"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\DataTransfer.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:DataTransferRequest",
+    "title": "DataTransferRequest",
+    "type": "object",
+    "properties": {
+        "vendorId": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "messageId": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "data": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "vendorId"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\DataTransferResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:DataTransferResponse",
+    "title": "DataTransferResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected",
+                "UnknownMessageId",
+                "UnknownVendorId"
+            ]
+        },
+        "data": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\DiagnosticsStatusNotification.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:DiagnosticsStatusNotificationRequest",
+    "title": "DiagnosticsStatusNotificationRequest",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Idle",
+                "Uploaded",
+                "UploadFailed",
+                "Uploading"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\DiagnosticsStatusNotificationResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:DiagnosticsStatusNotificationResponse",
+    "title": "DiagnosticsStatusNotificationResponse",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\FirmwareStatusNotification.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:FirmwareStatusNotificationRequest",
+    "title": "FirmwareStatusNotificationRequest",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Downloaded",
+                "DownloadFailed",
+                "Downloading",
+                "Idle",
+                "InstallationFailed",
+                "Installing",
+                "Installed"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\FirmwareStatusNotificationResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:FirmwareStatusNotificationResponse",
+    "title": "FirmwareStatusNotificationResponse",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetCompositeSchedule.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetCompositeScheduleRequest",
+    "title": "GetCompositeScheduleRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+    "duration": {
+        "type": "integer"
+    },
+    "chargingRateUnit": {
+        "type": "string",
+        "additionalProperties": false,
+        "enum": [
+            "A",
+            "W"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId",
+        "duration"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetCompositeScheduleResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetCompositeScheduleResponse",
+    "title": "GetCompositeScheduleResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected"
+            ]
+        },
+    "connectorId": {
+        "type": "integer"
+        },
+    "scheduleStart": {
+        "type": "string",
+        "format": "date-time"
+    },
+    "chargingSchedule": {
+        "type": "object",
+        "properties": {
+            "duration": {
+                "type": "integer"
+            },
+            "startSchedule": {
+                "type": "string",
+                "format": "date-time"
+            },
+            "chargingRateUnit": {
+                "type": "string",
+                "additionalProperties": false,
+                "enum": [
+                    "A",
+                    "W"
+                    ]
+            },
+            "chargingSchedulePeriod": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "startPeriod": {
+                            "type": "integer"
+                        },
+                        "limit": {
+                            "type": "number",
+                            "multipleOf" : 0.1
+                        },
+                        "numberPhases": {
+                            "type": "integer"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "startPeriod",
+                        "limit"
+                        ]
+                }
+            },
+            "minChargingRate": {
+                "type": "number",
+                "multipleOf" : 0.1
+            }
+        },
+        "additionalProperties": false,
+        "required": [
+            "chargingRateUnit",
+            "chargingSchedulePeriod"
+        ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetConfiguration.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetConfigurationRequest",
+    "title": "GetConfigurationRequest",
+    "type": "object",
+    "properties": {
+        "key": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "maxLength": 50
+            }
+        }
+    },
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetConfigurationResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetConfigurationResponse",
+    "title": "GetConfigurationResponse",
+    "type": "object",
+    "properties": {
+        "configurationKey": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "readonly": {
+                        "type": "boolean"
+                    },
+                    "value": {
+                        "type": "string",
+                        "maxLength": 500
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "key",
+                    "readonly"
+                ]
+            }
+        },
+        "unknownKey": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "maxLength": 50
+            }
+        }
+    },
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetDiagnostics.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetDiagnosticsRequest",
+    "title": "GetDiagnosticsRequest",
+    "type": "object",
+    "properties": {
+        "location": {
+            "type": "string",
+            "format": "uri"
+        },
+        "retries": {
+            "type": "integer"
+        },
+        "retryInterval": {
+            "type": "integer"
+        },
+        "startTime": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "stopTime": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "location"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetDiagnosticsResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetDiagnosticsResponse",
+    "title": "GetDiagnosticsResponse",
+    "type": "object",
+    "properties": {
+        "fileName": {
+            "type": "string",
+            "maxLength": 255
+        }
+    },
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetLocalListVersion.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetLocalListVersionRequest",
+    "title": "GetLocalListVersionRequest",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\GetLocalListVersionResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:GetLocalListVersionResponse",
+    "title": "GetLocalListVersionResponse",
+    "type": "object",
+    "properties": {
+        "listVersion": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "listVersion"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\Heartbeat.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:HeartbeatRequest",
+    "title": "HeartbeatRequest",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\HeartbeatResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:HeartbeatResponse",
+    "title": "HeartbeatResponse",
+    "type": "object",
+    "properties": {
+        "currentTime": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "currentTime"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\MeterValues.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:MeterValuesRequest",
+    "title": "MeterValuesRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+        "transactionId": {
+            "type": "integer"
+        },
+        "meterValue": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "sampledValue": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "string"
+                                },
+                                "context": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Interruption.Begin",
+                                        "Interruption.End",
+                                        "Sample.Clock",
+                                        "Sample.Periodic",
+                                        "Transaction.Begin",
+                                        "Transaction.End",
+                                        "Trigger",
+                                        "Other"
+                                    ]
+                                },
+                                "format": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Raw",
+                                        "SignedData"
+                                    ]
+                                },
+                                "measurand": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Energy.Active.Export.Register",
+                                        "Energy.Active.Import.Register",
+                                        "Energy.Reactive.Export.Register",
+                                        "Energy.Reactive.Import.Register",
+                                        "Energy.Active.Export.Interval",
+                                        "Energy.Active.Import.Interval",
+                                        "Energy.Reactive.Export.Interval",
+                                        "Energy.Reactive.Import.Interval",
+                                        "Power.Active.Export",
+                                        "Power.Active.Import",
+                                        "Power.Offered",
+                                        "Power.Reactive.Export",
+                                        "Power.Reactive.Import",
+                                        "Power.Factor",
+                                        "Current.Import",
+                                        "Current.Export",
+                                        "Current.Offered",
+                                        "Voltage",
+                                        "Frequency",
+                                        "Temperature",
+                                        "SoC",
+                                        "RPM"
+                                    ]
+                                },
+                                "phase": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "L1",
+                                        "L2",
+                                        "L3",
+                                        "N",
+                                        "L1-N",
+                                        "L2-N",
+                                        "L3-N",
+                                        "L1-L2",
+                                        "L2-L3",
+                                        "L3-L1"
+                                    ]
+                                },
+                                "location": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Cable",
+                                        "EV",
+                                        "Inlet",
+                                        "Outlet",
+                                        "Body"
+                                    ]
+                                },
+                                "unit": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Wh",
+                                        "kWh",
+                                        "varh",
+                                        "kvarh",
+                                        "W",
+                                        "kW",
+                                        "VA",
+                                        "kVA",
+                                        "var",
+                                        "kvar",
+                                        "A",
+                                        "V",
+                                        "K",
+                                        "Celcius",
+                                        "Celsius",
+                                        "Fahrenheit",
+                                        "Percent"
+                                    ]
+                                }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                                "value"
+                            ]
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "timestamp",
+                    "sampledValue"
+                ]       
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId",
+        "meterValue"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\MeterValuesResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:MeterValuesResponse",
+    "title": "MeterValuesResponse",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\RemoteStartTransaction.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:RemoteStartTransactionRequest",
+    "title": "RemoteStartTransactionRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+        "idTag": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "chargingProfile": {
+            "type": "object",
+            "properties": {
+                "chargingProfileId": {
+                    "type": "integer"
+                },
+                "transactionId": {
+                    "type": "integer"
+                },
+                "stackLevel": {
+                    "type": "integer"
+                },
+                "chargingProfilePurpose": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "ChargePointMaxProfile",
+                        "TxDefaultProfile",
+                        "TxProfile"
+                    ]
+                },
+                "chargingProfileKind": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "Absolute",
+                        "Recurring",
+                        "Relative"
+                    ]
+                },
+                "recurrencyKind": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "Daily",
+                        "Weekly"
+                    ]
+                },
+                "validFrom": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "validTo": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "chargingSchedule": {
+                    "type": "object",
+                    "properties": {
+                        "duration": {
+                            "type": "integer"
+                        },
+                        "startSchedule": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "chargingRateUnit": {
+                            "type": "string",
+                            "additionalProperties": false,
+                            "enum": [
+                                "A",
+                                "W"
+                            ]
+                        },
+                        "chargingSchedulePeriod": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "startPeriod": {
+                                        "type": "integer"
+                                    },
+                                    "limit": {
+                                        "type": "number",
+                                        "multipleOf" : 0.1
+                                    },
+                                    "numberPhases": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "required": [
+                                    "startPeriod",
+                                    "limit"
+                                ]
+                            }
+                        },
+                        "minChargingRate": {
+                            "type": "number",
+                            "multipleOf" : 0.1
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "chargingRateUnit",
+                        "chargingSchedulePeriod"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "chargingProfileId",
+                "stackLevel",
+                "chargingProfilePurpose",
+                "chargingProfileKind",
+                "chargingSchedule"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "idTag"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\RemoteStartTransactionResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:RemoteStartTransactionResponse",
+    "title": "RemoteStartTransactionResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\RemoteStopTransaction.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:RemoteStopTransactionRequest",
+    "title": "RemoteStopTransactionRequest",
+    "type": "object",
+    "properties": {
+        "transactionId": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "transactionId"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\RemoteStopTransactionResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:RemoteStopTransactionResponse",
+    "title": "RemoteStopTransactionResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ReserveNow.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ReserveNowRequest",
+    "title": "ReserveNowRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+        "expiryDate": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "idTag": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "parentIdTag": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "reservationId": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId",
+        "expiryDate",
+        "idTag",
+        "reservationId"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ReserveNowResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ReserveNowResponse",
+    "title": "ReserveNowResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Faulted",
+                "Occupied",
+                "Rejected",
+                "Unavailable"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\Reset.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ResetRequest",
+    "title": "ResetRequest",
+    "type": "object",
+    "properties": {
+        "type": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Hard",
+                "Soft"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "type"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\ResetResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:ResetResponse",
+    "title": "ResetResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\SendLocalList.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:SendLocalListRequest",
+    "title": "SendLocalListRequest",
+    "type": "object",
+    "properties": {
+        "listVersion": {
+            "type": "integer"
+        },
+        "localAuthorizationList": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "idTag": {
+                        "type": "string",
+                        "maxLength": 20
+                    },
+                    "idTagInfo": {
+                        "type": "object",
+                        "properties": {
+                            "expiryDate": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "parentIdTag": {
+                                "type": "string",
+                                "maxLength": 20
+                            },
+                            "status": {
+                                "type": "string",
+                                "additionalProperties": false,
+                                "enum": [
+                                    "Accepted",
+                                    "Blocked",
+                                    "Expired",
+                                    "Invalid",
+                                    "ConcurrentTx"
+                                ]
+                            }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                            "status"
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "idTag"
+                ]
+            }
+        },
+        "updateType": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Differential",
+                "Full"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "listVersion",
+        "updateType"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\SendLocalListResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:SendLocalListResponse",
+    "title": "SendLocalListResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Failed",
+                "NotSupported",
+                "VersionMismatch"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\SetChargingProfile.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:SetChargingProfileRequest",
+    "title": "SetChargingProfileRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+        "csChargingProfiles": {
+            "type": "object",
+            "properties": {
+                "chargingProfileId": {
+                    "type": "integer"
+                },
+                "transactionId": {
+                    "type": "integer"
+                },
+                "stackLevel": {
+                    "type": "integer"
+                },
+                "chargingProfilePurpose": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "ChargePointMaxProfile",
+                        "TxDefaultProfile",
+                        "TxProfile"
+                    ]
+                },
+                "chargingProfileKind": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "Absolute",
+                        "Recurring",
+                        "Relative"
+                    ]
+                },
+                "recurrencyKind": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "Daily",
+                        "Weekly"
+                    ]
+                },
+                "validFrom": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "validTo": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "chargingSchedule": {
+                    "type": "object",
+                    "properties": {
+                        "duration": {
+                            "type": "integer"
+                        },
+                        "startSchedule": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "chargingRateUnit": {
+                            "type": "string",
+                            "additionalProperties": false,
+                            "enum": [
+                                "A",
+                                "W"
+                            ]
+                        },
+                        "chargingSchedulePeriod": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "startPeriod": {
+                                        "type": "integer"
+                                    },
+                                "limit": {
+                                    "type": "number",
+                                    "multipleOf" : 0.1
+                                },
+                                "numberPhases": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "required": [
+                                    "startPeriod",
+                                    "limit"
+                                ]
+                            }
+                        },
+                        "minChargingRate": {
+                            "type": "number",
+                            "multipleOf" : 0.1
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "chargingRateUnit",
+                        "chargingSchedulePeriod"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "chargingProfileId",
+                "stackLevel",
+                "chargingProfilePurpose",
+                "chargingProfileKind",
+                "chargingSchedule"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId",
+        "csChargingProfiles"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\SetChargingProfileResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:SetChargingProfileResponse",
+    "title": "SetChargingProfileResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected",
+                "NotSupported"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\StartTransaction.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:StartTransactionRequest",
+    "title": "StartTransactionRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+        "idTag": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "meterStart": {
+            "type": "integer"
+        },
+        "reservationId": {
+            "type": "integer"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId",
+        "idTag",
+        "meterStart",
+        "timestamp"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\StartTransactionResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:StartTransactionResponse",
+    "title": "StartTransactionResponse",
+    "type": "object",
+    "properties": {
+        "idTagInfo": {
+            "type": "object",
+            "properties": {
+                "expiryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "parentIdTag": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "status": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "Accepted",
+                        "Blocked",
+                        "Expired",
+                        "Invalid",
+                        "ConcurrentTx"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "status"
+            ]
+        },
+        "transactionId": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "idTagInfo",
+        "transactionId"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\StatusNotification.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:StatusNotificationRequest",
+    "title": "StatusNotificationRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        },
+        "errorCode": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "ConnectorLockFailure",
+                "EVCommunicationError",
+                "GroundFailure",
+                "HighTemperature",
+                "InternalError",
+                "LocalListConflict",
+                "NoError",
+                "OtherError",
+                "OverCurrentFailure",
+                "PowerMeterFailure",
+                "PowerSwitchFailure",
+                "ReaderFailure",
+                "ResetFailure",
+                "UnderVoltage",
+                "OverVoltage",
+                "WeakSignal"
+            ]
+        },
+        "info": {
+            "type": "string",
+            "maxLength": 50
+        },
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Available",
+                "Preparing",
+                "Charging",
+                "SuspendedEVSE",
+                "SuspendedEV",
+                "Finishing",
+                "Reserved",
+                "Unavailable",
+                "Faulted"
+            ]
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "vendorId": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "vendorErrorCode": {
+            "type": "string",
+            "maxLength": 50
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId",
+        "errorCode",
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\StatusNotificationResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:StatusNotificationResponse",
+    "title": "StatusNotificationResponse",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\StopTransaction.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:StopTransactionRequest",
+    "title": "StopTransactionRequest",
+    "type": "object",
+    "properties": {
+        "idTag": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "meterStop": {
+            "type": "integer"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "transactionId": {
+            "type": "integer"
+        },
+        "reason": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "EmergencyStop",
+                "EVDisconnected",
+                "HardReset",
+                "Local",
+                "Other",
+                "PowerLoss",
+                "Reboot",
+                "Remote",
+                "SoftReset",
+                "UnlockCommand",
+                "DeAuthorized"
+            ]
+        },
+        "transactionData": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "sampledValue": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "string"
+                                },
+                                "context": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Interruption.Begin",
+                                        "Interruption.End",
+                                        "Sample.Clock",
+                                        "Sample.Periodic",
+                                        "Transaction.Begin",
+                                        "Transaction.End",
+                                        "Trigger",
+                                        "Other"
+                                    ]
+                                },  
+                                "format": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Raw",
+                                        "SignedData"
+                                    ]
+                                },
+                                "measurand": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Energy.Active.Export.Register",
+                                        "Energy.Active.Import.Register",
+                                        "Energy.Reactive.Export.Register",
+                                        "Energy.Reactive.Import.Register",
+                                        "Energy.Active.Export.Interval",
+                                        "Energy.Active.Import.Interval",
+                                        "Energy.Reactive.Export.Interval",
+                                        "Energy.Reactive.Import.Interval",
+                                        "Power.Active.Export",
+                                        "Power.Active.Import",
+                                        "Power.Offered",
+                                        "Power.Reactive.Export",
+                                        "Power.Reactive.Import",
+                                        "Power.Factor",
+                                        "Current.Import",
+                                        "Current.Export",
+                                        "Current.Offered",
+                                        "Voltage",
+                                        "Frequency",
+                                        "Temperature",
+                                        "SoC",
+                                        "RPM"
+                                    ]
+                                },
+                                "phase": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "L1",
+                                        "L2",
+                                        "L3",
+                                        "N",
+                                        "L1-N",
+                                        "L2-N",
+                                        "L3-N",
+                                        "L1-L2",
+                                        "L2-L3",
+                                        "L3-L1"
+                                    ]
+                                },
+                                "location": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Cable",
+                                        "EV",
+                                        "Inlet",
+                                        "Outlet",
+                                        "Body"
+                                    ]
+                                },
+                                "unit": {
+                                    "type": "string",
+                                    "additionalProperties": false,
+                                    "enum": [
+                                        "Wh",
+                                        "kWh",
+                                        "varh",
+                                        "kvarh",
+                                        "W",
+                                        "kW",
+                                        "VA",
+                                        "kVA",
+                                        "var",
+                                        "kvar",
+                                        "A",
+                                        "V",
+                                        "K",
+                                        "Celcius",
+                                        "Fahrenheit",
+                                        "Percent"
+                                    ]
+                                }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                                "value"
+                            ]
+                        }
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "timestamp",
+                    "sampledValue"
+                ]
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "transactionId",
+        "timestamp",
+        "meterStop"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\StopTransactionResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:StopTransactionResponse",
+    "title": "StopTransactionResponse",
+    "type": "object",
+    "properties": {
+        "idTagInfo": {
+            "type": "object",
+            "properties": {
+                "expiryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "parentIdTag": {
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "status": {
+                    "type": "string",
+                    "additionalProperties": false,
+                    "enum": [
+                        "Accepted",
+                        "Blocked",
+                        "Expired",
+                        "Invalid",
+                        "ConcurrentTx"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "status"
+            ]
+        }
+    },
+    "additionalProperties": false
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\TriggerMessage.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:TriggerMessageRequest",
+    "title": "TriggerMessageRequest",
+    "type": "object",
+    "properties": {
+        "requestedMessage": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "BootNotification",
+                "DiagnosticsStatusNotification",
+                "FirmwareStatusNotification",
+                "Heartbeat",
+                "MeterValues",
+                "StatusNotification"
+            ]
+        },
+        "connectorId": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "requestedMessage"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\TriggerMessageResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:TriggerMessageResponse",
+    "title": "TriggerMessageResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Accepted",
+                "Rejected",
+                "NotImplemented"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\UnlockConnector.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:UnlockConnectorRequest",
+    "title": "UnlockConnectorRequest",
+    "type": "object",
+    "properties": {
+        "connectorId": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "connectorId"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\UnlockConnectorResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:UnlockConnectorResponse",
+    "title": "UnlockConnectorResponse",
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "Unlocked",
+                "UnlockFailed",
+                "NotSupported"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "status"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\UpdateFirmware.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:UpdateFirmwareRequest",
+    "title": "UpdateFirmwareRequest",
+    "type": "object",
+    "properties": {
+        "location": {
+            "type": "string",
+            "format": "uri"
+        },
+        "retries": {
+            "type": "integer"
+        },
+        "retrieveDate": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "retryInterval": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "location",
+        "retrieveDate"
+    ]
+}
+
+------------------------------------------------------------
+File: Y:\OCPP_1.6_documentation_2019_12\schemas\json\UpdateFirmwareResponse.json
+------------------------------------------------------------
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "urn:OCPP:1.6:2019:12:UpdateFirmwareResponse",
+    "title": "UpdateFirmwareResponse",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+
+Press any key to continue . . . 

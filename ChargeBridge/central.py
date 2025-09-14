@@ -1198,13 +1198,18 @@ async def main():
 
     api_task = asyncio.create_task(run_http_api())
 
+    supported_protocols = ["ocpp1.6", "ocpp1.6j"]
+
     async with serve(
         handler,
-        host='0.0.0.0',
+        host="0.0.0.0",
         port=9000,
-        subprotocols=['ocpp1.6']
+        subprotocols=supported_protocols,
     ):
-        logging.info("⚡ Central listening on ws://0.0.0.0:9000/ocpp/<ChargePointID> | HTTP :8080")
+        logging.info(
+            "⚡ Central listening on ws://0.0.0.0:9000/ocpp/<ChargePointID> | HTTP :8080 | Protocols: %s",
+            ", ".join(supported_protocols),
+        )
         await asyncio.Future()
 
 

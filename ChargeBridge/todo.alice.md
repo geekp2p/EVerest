@@ -16,7 +16,7 @@ Tasks for OCPP server enhancements compatible with existing `ChargeBridge` modul
 - [x] Send `MeterValues` during active sessions and record them to persistent storage.
 
 ## 4. Vendor-specific DataTransfer
-- [ ] Implement handler to parse and respond to `DataTransfer` messages.
+- [x] Implement handler to parse and respond to `DataTransfer` messages.
 - [ ] Provide helper to send vendor-specific payloads (e.g., map MacID to VID).
 
 ## 5. Extend session data model

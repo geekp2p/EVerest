@@ -1,5 +1,8 @@
 """Handlers for converting external identifiers to internal VIDs."""
 
+import json
+import logging
+
 from services.vid_manager import VIDManager
 
 vid_manager = VIDManager()
@@ -42,7 +45,7 @@ async def on_data_transfer(request, session_context):
     Returns
     -------
     dict
-        Empty dictionary acknowledging the DataTransfer.
+        Response payload containing the ``status`` field required by OCPP.
     """
     vendor_id = getattr(request, "vendor_id", None)
     data = getattr(request, "data", None)
@@ -51,8 +54,20 @@ async def on_data_transfer(request, session_context):
         vid = vid_manager.get_or_create_vid("mac", data)
         session_context["mac"] = data
         session_context["vid"] = vid
+        return {"status": "Accepted"}
 
-    return {}
+    if vendor_id == "org.everest.config" and data:
+        try:
+            payload = json.loads(data) if isinstance(data, str) else data
+        except Exception:
+            logging.error("Invalid DataTransfer payload for org.everest.config: %s", data)
+            return {"status": "Rejected"}
+        if isinstance(payload, dict):
+            session_context.setdefault("config", {}).update(payload)
+        return {"status": "Accepted"}
+
+    logging.debug("Ignoring DataTransfer for unknown vendor_id %s", vendor_id)
+    return {"status": "UnknownVendorId"}
 
 async def on_authorize(request, session_context):
     """Handle an :class:`~ocpp.v16.authorize.Authorize` request.

@@ -670,6 +670,10 @@ class SessionStartReq(BaseModel):
 
 class SessionStopReq(BaseModel):
     kWhDelivered: float
+    current: float | None = None
+    voltage: float | None = None
+    temperature: float | None = None
+    soc: float | None = None
 
 
 class ActiveSession(BaseModel):
@@ -718,6 +722,10 @@ class CompletedSession(BaseModel):
     stopTime: str
     durationSecs: float
     samples: List[Dict[str, Any]] = Field(default_factory=list)
+    current: float | None = None
+    voltage: float | None = None
+    temperature: float | None = None
+    soc: float | None = None
 
 
 class ConnectorStatus(BaseModel):
@@ -984,10 +992,18 @@ def api_stop_session(connector_id: int, req: SessionStopReq):
         active_session["finishedAt"] = finished_at
         active_session["kWhDelivered"] = req.kWhDelivered
         active_session["status"] = "completed"
+        active_session["current"] = req.current
+        active_session["voltage"] = req.voltage
+        active_session["temperature"] = req.temperature
+        active_session["soc"] = req.soc
     else:
         setattr(active_session, "finishedAt", finished_at)
         setattr(active_session, "kWhDelivered", req.kWhDelivered)
         setattr(active_session, "status", "completed")
+        setattr(active_session, "current", req.current)
+        setattr(active_session, "voltage", req.voltage)
+        setattr(active_session, "temperature", req.temperature)
+        setattr(active_session, "soc", req.soc)
     connector.status = "Available"
     store.sessions_history.append(active_session)
     if active_id is not None:

@@ -1,0 +1,9 @@
+ocpp==0.19.0
+fastapi>=0.111,<1.0
+uvicorn[standard]==0.22.0
+pydantic>=2,<3
+websockets==11.0.3
+aiohttp==3.9.5
+httpx==0.24.1
+jsonschema==4.17.3
+pyrsistent==0.19.3

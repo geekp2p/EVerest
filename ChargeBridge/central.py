@@ -21,6 +21,32 @@ from ocpp.v16.enums import (
     AvailabilityType,
 )
 
+# NOTE: ocpp>=0.16 renamed Action enum members from snake_case to CamelCase.
+# Older versions of this project rely on the snake_case names, so we
+# dynamically create aliases to keep the code compatible across both
+# versions.  This prevents AttributeError (e.g. ``Action.boot_notification``)
+# when running with newer releases while still supporting environments with
+# the original names.
+_ACTION_ALIASES = {
+    "boot_notification": "BootNotification",
+    "authorize": "Authorize",
+    "status_notification": "StatusNotification",
+    "heartbeat": "Heartbeat",
+    "meter_values": "MeterValues",
+    "data_transfer": "DataTransfer",
+    "start_transaction": "StartTransaction",
+    "stop_transaction": "StopTransaction",
+}
+
+for legacy_name, canonical_name in _ACTION_ALIASES.items():
+    legacy_attr = getattr(Action, legacy_name, None)
+    canonical_attr = getattr(Action, canonical_name, None)
+
+    if canonical_attr is not None and legacy_attr is None:
+        setattr(Action, legacy_name, canonical_attr)
+    elif canonical_attr is None and legacy_attr is not None:
+        setattr(Action, canonical_name, legacy_attr)
+
 from fastapi import FastAPI, HTTPException, Request, Header
 from pydantic import BaseModel, Field, ConfigDict, AliasChoices, ValidationError
 import uvicorn

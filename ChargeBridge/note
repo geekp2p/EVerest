@@ -110,3 +110,6 @@ python -m compileall ocpp_local
 pip install "websockets>=10,<13"
 
 pip install ocpp==2.1.0 "websockets>=10,<13" fastapi uvicorn pydantic
+
+pip uninstall -y pydantic fastapi starlette
+pip install --no-cache-dir -r /workspaces/EVerest/ChargeBridge/requirements.txt --force-reinstall
